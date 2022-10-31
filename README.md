@@ -1,6 +1,10 @@
 # Description
 
-This repository is meant to serve as a general template for how to set up new repositories in the JogetOSS organization. 
+This plugin works just like the default bundled File Upload form element in Joget, but with the added ability to handle uploads and file pinning with IPFS.
+
+The plugin's base implementation can be found on the Joget Community Github page [here](https://github.com/jogetworkflow/jw-community/blob/7.0-SNAPSHOT/wflow-core/src/main/java/org/joget/apps/form/lib/FileUpload.java).
+
+This plugin integrates with [Blockfrost](https://github.com/blockfrost/blockfrost-java) for IPFS functionality.
 
 # Getting Help
 
