@@ -68,15 +68,13 @@ public class IpfsFileUpload extends FileUpload {
     
     @Override
     public FormRowSet formatData(FormData formData) { //Modified for single file upload only
-        FormRowSet rowSet = null;
+        FormRowSet rowSet = new FormRowSet();
+        FormRow result = new FormRow();
         
         String id = getPropertyString(FormUtil.PROPERTY_ID);
         String ipfsCidField = getPropertyString("ipfsCidField");
         
         Form form = FormUtil.findRootForm(this);
-        Element ipfsCidElement = FormUtil.findElement(ipfsCidField, form, formData);
-        
-        final String cidParamName = FormUtil.getElementParameterName(ipfsCidElement);
         
         final String originalValue = formData.getLoadBinderDataProperty(form, id);
         final String originalIpfsCid = formData.getLoadBinderDataProperty(form, ipfsCidField);
@@ -138,7 +136,7 @@ public class IpfsFileUpload extends FileUpload {
                             String ipfsCid = ipfsObject.getIpfsHash();
                             ipfsService.pinAdd(ipfsCid);
                             LogUtil.info(getClass().getName(), "New file is pinned with cid of: " + ipfsCid);
-                            formData.addRequestParameterValues(cidParamName, new String[]{ipfsCid});
+                            result.setProperty(ipfsCidField, ipfsCid);
                         } catch (Exception ex) {
                             LogUtil.error(getClass().getName(), ex, "Unable to upload file to IPFS");
                             return null;
@@ -154,11 +152,11 @@ public class IpfsFileUpload extends FileUpload {
                     
                     //Handle IPFS CID unpinning if file is deleted. Ignore if untouched.
                     if (value.isBlank()) {
-                        formData.addRequestParameterValues(cidParamName, new String[]{""});
                         if (originalIpfsCid != null && !originalIpfsCid.isBlank()) {
                             IPFSService ipfsService = new IPFSServiceImpl(Constants.BLOCKFROST_IPFS_URL, blockfrostIpfsProjectKey);
                             try {
                                 ipfsService.removePinnedObject(originalIpfsCid);
+                                result.setProperty(ipfsCidField, "");
                                 LogUtil.info(getClass().getName(), "File deleted. Unpinning file cid of: " + originalIpfsCid);
                             } catch (Exception ex) {
                                 LogUtil.error(getClass().getName(), ex, "Unable to unpin file on IPFS");
@@ -170,7 +168,7 @@ public class IpfsFileUpload extends FileUpload {
                     }
                 }
                 
-                FormRow result = new FormRow();
+                
                 
                 if (!filePaths.isEmpty()) {
                     result.putTempFilePath(id, filePaths.toArray(new String[]{}));
@@ -187,7 +185,6 @@ public class IpfsFileUpload extends FileUpload {
                         
                 // set value into Properties and FormRowSet object
                 result.setProperty(id, delimitedValue);
-                rowSet = new FormRowSet();
                 rowSet.add(result);
                 
                 //Workaround due to setting custom store binder wrapper

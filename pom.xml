@@ -4,7 +4,7 @@
     <groupId>org.joget.marketplace</groupId>
     <artifactId>ipfs-file-upload</artifactId>
     <packaging>bundle</packaging>
-    <version>7.0.0</version>
+    <version>7.0.1</version>
     <name>ipfs-file-upload</name>
     <url>http://www.joget.org</url>
     <build>
@@ -97,7 +97,7 @@
         <dependency>
             <groupId>io.blockfrost</groupId>
             <artifactId>blockfrost-java</artifactId>
-            <version>0.1.1</version>
+            <version>0.1.2</version>
         </dependency>
         <!-- End change plugin specific dependencies here -->
     </dependencies>
