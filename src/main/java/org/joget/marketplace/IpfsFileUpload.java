@@ -57,7 +57,7 @@ public class IpfsFileUpload extends FileUpload {
 
     @Override
     public String getVersion() {
-        return "7.0.1";
+        return "7.0.2";
     }
 
     @Override
@@ -170,17 +170,17 @@ public class IpfsFileUpload extends FileUpload {
                 
                 
                 if (!filePaths.isEmpty()) {
-                    result.putTempFilePath(id, filePaths.toArray(new String[]{}));
+                    result.putTempFilePath(id, filePaths.toArray(String[]::new));
                 }
                 
                 if (remove != null) {
-                    result.putDeleteFilePath(id, remove.toArray(new String[]{}));
+                    result.putDeleteFilePath(id, remove.toArray(String[]::new));
                 }
                 
                 // formulate values
-                String delimitedValue = FormUtil.generateElementPropertyValues(resultedValue.toArray(new String[]{}));
+                String delimitedValue = FormUtil.generateElementPropertyValues(resultedValue.toArray(String[]::new));
                 String paramName = FormUtil.getElementParameterName(this);
-                formData.addRequestParameterValues(paramName, resultedValue.toArray(new String[]{}));
+                formData.addRequestParameterValues(paramName, resultedValue.toArray(String[]::new));
                         
                 // set value into Properties and FormRowSet object
                 result.setProperty(id, delimitedValue);

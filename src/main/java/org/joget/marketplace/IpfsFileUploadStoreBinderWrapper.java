@@ -24,7 +24,7 @@ public class IpfsFileUploadStoreBinderWrapper extends FormBinder implements Form
 
     @Override
     public String getVersion() {
-        return "7.0.1";
+        return "7.0.2";
     }
 
     @Override
