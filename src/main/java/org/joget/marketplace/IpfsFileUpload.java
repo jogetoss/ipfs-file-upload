@@ -25,7 +25,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.joget.apps.app.model.AppDefinition;
 import org.joget.apps.app.service.AppUtil;
 import org.joget.apps.form.lib.FileUpload;
-import org.joget.apps.form.model.Element;
 import org.joget.apps.form.model.Form;
 import org.joget.apps.form.model.FormBuilderPalette;
 import org.joget.apps.form.model.FormData;
@@ -58,7 +57,7 @@ public class IpfsFileUpload extends FileUpload {
 
     @Override
     public String getVersion() {
-        return "7.0.0";
+        return "7.0.1";
     }
 
     @Override
